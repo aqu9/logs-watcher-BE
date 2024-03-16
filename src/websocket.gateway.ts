@@ -36,7 +36,10 @@ export class websocketGateway
 
   @SubscribeMessage('fetchLastLogsLines')
   async fetchLastLogsLines(client: Socket) {
-    await appendLogsinFile(formatLog('fetching last 10 lines of logs...'));
+    await appendLogsinFile(
+      formatLog('fetching last 10 lines of logs...'),
+      this,
+    );
     const lastLogsLines = await readLastLogLines();
     this.server.to(client.id).emit('lastLogsLines', lastLogsLines);
   }
